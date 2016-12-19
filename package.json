@@ -1,0 +1,25 @@
+{
+  "name": "cms-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcristian5/cms-server.git"
+  },
+  "author": "Cristian Ramirez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rcristian5/cms-server/issues"
+  },
+  "homepage": "https://github.com/rcristian5/cms-server#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.3"
+  }
+}
