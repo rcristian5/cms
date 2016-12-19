@@ -3,7 +3,6 @@ const bodyParser = require('body-parser')
 
 const postsRouter = require('./routes/posts')
 const databaseModule = require('./modules/database')
-const config = require('./modules/config')
 const appCtrl = require('./controllers/app')
 
 
@@ -17,7 +16,7 @@ app.use( bodyParser.json() )
 
 
 
-app.use( '/', postsRouter )
+app.use( '/api/posts', postsRouter )
 
 
 
