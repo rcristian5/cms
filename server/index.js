@@ -1,23 +1,10 @@
-const express = require('express')
-const bodyParser = require('body-parser')
 
-const postsRouter = require('./routes/posts')
+const configModule = require('./modules/config')
 const databaseModule = require('./modules/database')
-const appCtrl = require('./controllers/app')
+const appModule = require('./modules/app')
 
 
-
-const app = express()
-
+const port = process.env.PORT || configModule.app.port
 
 
-app.use( bodyParser.urlencoded({ extended: false }) )
-app.use( bodyParser.json() )
-
-
-
-app.use( '/api/posts', postsRouter )
-
-
-
-databaseModule.connect( appCtrl.listenApp(app) )
+databaseModule.connect( appModule.listenApp(port) )
