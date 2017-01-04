@@ -22,8 +22,8 @@ const successConnection = () => {
 }
 
 
-const errorConnection = () => {
-	console.error.bind(console, 'connection error:')
+const errorConnection = ( err ) => {
+	console.error( err )
 }
 
 

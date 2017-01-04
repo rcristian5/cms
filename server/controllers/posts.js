@@ -1,84 +1,88 @@
 const POSTS = require('../models/posts')
 const api = {}
-let options = {
-	_id: 0,
-	__v: 0
-}
 
 
+api.getPosts = ( req, res, next ) => {
+	POSTS.find( {}, ( err, listPosts ) => {
+		if( err ) return next({})
 
-api.getPosts = ( req, res ) => {
-	POSTS.find( {}, options, ( err, listPosts) => {
-		if( err ){
-			return res.status(500).send('Error')
-		}
-		res.status(200).json(listPosts)
+		res.status( 200 ).json( listPosts )
 	})
 }
 
 
 
-api.getOnlyPosts = ( req, res ) => {
-	let query = { _id: req.params.id }
+api.getOnlyPosts = ( req, res, next ) => {
+	let query = { _id: req.params.id || '' }
 
-	POSTS.findOne( query, options, ( err, posts) => {
-		if( err ){
-			return res.status(500).send('Error')
-		}
-		res.status(200).json(posts)
+	POSTS.findOne( query, ( err, posts ) => {
+		if( err ) return next({ error: err })
+
+		if( !posts ) return next({ name: 'CastError', error: {value: req.params.id} })
+
+		res.status( 200 ).json( posts )
 	})
 }
 
 
 
-api.savePosts = ( req, res ) => {
+api.savePosts = ( req, res, next ) => {
 	let posts = req.body
-	delete posts.date
 
 	POSTS.create( posts, ( err, postsStoraged ) => {
-		if( err ){
-			return res.status(500).send('Error')
-		}
-		res.status(200).json(postsStoraged)
+		if( err ) return next({ status: 422, error: err })
+
+		res.status( 201 ).json( postsStoraged )
 	})
 }
 
 
 
-api.updatePosts = ( req, res ) => {
+api.updatePosts = ( req, res, next ) => {
+
+	if( !req.body.id ) return next({ status: 400, name: 'Bad request', message: 'Could not find id property' })
 
 	let query = { _id: req.body.id }
-	let posts = req.body
-	delete posts.date
+	let dataPosts = req.body
 
-	POSTS.findOneAndUpdate( query, posts, ( err, postsUpdate ) => {
-		if( err ){
-			return res.status(500).send('Error')
-		}
 
-		if( !postsUpdate ){
-			return res.status(404).send('Recurso no encontrado')
-		}
+	POSTS.findOne( query, ( err, posts ) => {
+		if( err ) return next({ error: err })
 
-		res.status(200).json(postsUpdate)
+		if( !posts ) return next({ name: 'CastError', error: {value: req.body.id} })
+
+		posts.title = dataPosts.title || posts.title
+		posts.body = dataPosts.body || posts.body
+		posts.hidden = dataPosts.hidden || posts.hidden
+		posts.images = dataPosts.images || posts.images
+		posts.userId = dataPosts.userId || posts.userId
+		posts.tagId = dataPosts.tagId || posts.tagId
+		posts.categoryId = dataPosts.categoryId || posts.categoryId
+
+
+		posts.save( (err, postsUpdated ) => {
+			if( err ) return next({ error: err })
+
+			res.status( 200 ).json( postsUpdated )
+		})
+
 	})
 }
 
 
 
-api.deletePosts = ( req, res ) => {
+api.deletePosts = ( req, res, next) => {
+
+	if( !req.body.id ) return next({ status: 400, name: 'Bad request', message: 'Could not find id property' })
+
 	let query = { _id: req.body.id }
 
 	POSTS.findOneAndRemove( query, ( err, postsRemoved ) => {
-		if( err ){
-			return res.status(500).send('Error')
-		}
+		if( err ) return next({ error: err })
 
-		if( !postsRemoved ){
-			return res.status(404).send('Recurso no encontrado')
-		}
+		if( !postsRemoved ) return next({ name: 'CastError', error: {value: req.body.id} })
 
-		res.status(200).json(postsRemoved)
+		res.status( 200 ).json( postsRemoved )
 	})
 }
 

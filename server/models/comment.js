@@ -1,14 +1,13 @@
 const mongoose = require('mongoose')
-const schema = mongoose.schema
+const Schema = mongoose.Schema
 
 
-const commentSchema = ({
-	author: String,
+const commentSchema = Schema({
+	title: String,
 	body:   String,
-	date: { type: Date, default: Date.now },
-	posts: { type: Schema.ObjectId, ref:"posts" }
+	creatAt: { type: Date, default: Date.now },
+	postsId: { type: Schema.ObjectId, ref: 'posts' }
 })
 
 
-
-module.exports = mongoose.model ('comment', commentSchema)
+module.exports = mongoose.model ('comments', commentSchema )
