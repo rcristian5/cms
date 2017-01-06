@@ -2,7 +2,7 @@ const USER = require('../models/user')
 const api = {}
 
 
-api.getUser = ( req, res, next ) => {
+api.getUsers = ( req, res, next ) => {
 	USER.find( {}, ( err, listUser ) => {
 		if( err ) return next({})
 

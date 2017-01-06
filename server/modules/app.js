@@ -15,10 +15,11 @@ app.use( bodyParser.urlencoded({ extended: false }) )
 app.use( bodyParser.json() )
 app.use( passport.initialize() )
 
-app.use( '/api/user', userRouter )
+app.use( '/api/user', userRouter.public )
 
 app.use( passportModule.authenticateLocal )
 
+app.use( '/api/user', userRouter.private )
 app.use( '/api/posts', postsRouter )
 
 

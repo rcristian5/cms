@@ -1,21 +1,24 @@
 const express = require('express')
 const userCtrl = require('../controllers/user')
-let router = express.Router()
+let router = {
+	public: express.Router(),
+	private: express.Router()
+}
 
 
-router.get( '/', userCtrl.getUser)
+router.public.get( '/', userCtrl.getUsers)
 
 
-router.get( '/:id', userCtrl.getOnlyUser)
+router.public.get( '/:id', userCtrl.getOnlyUser)
 
 
-router.post( '/', userCtrl.saveUser)
+router.public.post( '/', userCtrl.saveUser)
 
 
-router.put( '/', userCtrl.updateUser)
+router.private.put( '/', userCtrl.updateUser)
 
 
-router.delete( '/', userCtrl.deleteUser)
+router.private.delete( '/', userCtrl.deleteUser)
 
 
 module.exports = router
