@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 const postsRouter = require('../routes/posts')
+const userRouter = require('../routes/user')
 const errorModule = require('./error')
 
 
@@ -13,6 +14,7 @@ app.use( bodyParser.urlencoded({ extended: false }) )
 app.use( bodyParser.json() )
 
 
+app.use( '/api/user', userRouter )
 app.use( '/api/posts', postsRouter )
 
 
