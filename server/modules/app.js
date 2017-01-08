@@ -1,9 +1,9 @@
 
-const express = require('express')
-const bodyParser = require('body-parser')
+import express from 'express'
+import bodyParser from 'body-parser'
 
-const postsRouter = require('../routes/posts')
-const errorModule = require('./error')
+import { postsRouter } from '../routes/posts'
+import { errorHandler } from './error'
 
 
 const app = express()
@@ -16,16 +16,13 @@ app.use( bodyParser.json() )
 app.use( '/api/posts', postsRouter )
 
 
-app.use( errorModule.errorHandler )
+app.use( errorHandler )
 
 
-app.listenApp = ( _port ) => {
+export const listenApp = ( _port ) => {
 	return () => {
 		app.listen( _port, () => {
 			console.log(`Server listening in http://localhost:${_port}`)
 		})
 	}
 }
-
-
-module.exports = app

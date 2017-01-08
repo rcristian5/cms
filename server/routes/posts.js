@@ -1,21 +1,18 @@
-const express = require('express')
-const postsCtrl = require('../controllers/posts')
-let router = express.Router()
+import express from 'express'
+import * as postsCtrl from '../controllers/posts'
+export let postsRouter = express.Router()
 
 
-router.get( '/', postsCtrl.getPosts)
+postsRouter.get( '/', postsCtrl.getPosts)
 
 
-router.get( '/:id', postsCtrl.getOnlyPosts)
+postsRouter.get( '/:id', postsCtrl.getOnlyPosts)
 
 
-router.post( '/', postsCtrl.savePosts)
+postsRouter.post( '/', postsCtrl.savePosts)
 
 
-router.put( '/', postsCtrl.updatePosts)
+postsRouter.put( '/', postsCtrl.updatePosts)
 
 
-router.delete( '/', postsCtrl.deletePosts)
-
-
-module.exports = router
+postsRouter.delete( '/', postsCtrl.deletePosts)

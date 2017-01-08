@@ -1,8 +1,7 @@
-const POSTS = require('../models/posts')
-const api = {}
+import { POSTS } from '../models/posts'
 
 
-api.getPosts = ( req, res, next ) => {
+export const getPosts = ( req, res, next ) => {
 	POSTS.find( {}, ( err, listPosts ) => {
 		if( err ) return next({})
 
@@ -12,7 +11,7 @@ api.getPosts = ( req, res, next ) => {
 
 
 
-api.getOnlyPosts = ( req, res, next ) => {
+export const getOnlyPosts = ( req, res, next ) => {
 	let query = { _id: req.params.id || '' }
 
 	POSTS.findOne( query, ( err, posts ) => {
@@ -26,7 +25,7 @@ api.getOnlyPosts = ( req, res, next ) => {
 
 
 
-api.savePosts = ( req, res, next ) => {
+export const savePosts = ( req, res, next ) => {
 	let posts = req.body
 
 	POSTS.create( posts, ( err, postsStoraged ) => {
@@ -38,7 +37,7 @@ api.savePosts = ( req, res, next ) => {
 
 
 
-api.updatePosts = ( req, res, next ) => {
+export const updatePosts = ( req, res, next ) => {
 
 	if( !req.body.id ) return next({ status: 400, name: 'Bad request', message: 'Could not find id property' })
 
@@ -71,7 +70,7 @@ api.updatePosts = ( req, res, next ) => {
 
 
 
-api.deletePosts = ( req, res, next) => {
+export const deletePosts = ( req, res, next) => {
 
 	if( !req.body.id ) return next({ status: 400, name: 'Bad request', message: 'Could not find id property' })
 
@@ -85,7 +84,3 @@ api.deletePosts = ( req, res, next) => {
 		res.status( 200 ).json( postsRemoved )
 	})
 }
-
-
-
-module.exports = api

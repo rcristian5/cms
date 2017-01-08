@@ -1,12 +1,11 @@
 
-const mongoose = require('mongoose')
-const configModule = require('./config')
+import mongoose from 'mongoose'
+import { databaseConfig } from './config'
 const db = mongoose.connection
-const api = {}
 
 
-api.connect = ( _cbSuccess, _cbError ) => {
-	mongoose.connect(`${configModule.database.uri}/${configModule.database.name}`)
+export const databaseConnect = ( _cbSuccess, _cbError ) => {
+	mongoose.connect(`${databaseConfig.uri}/${databaseConfig.name}`)
 	setListeningConnection( _cbSuccess, _cbError )
 }
 
@@ -25,6 +24,3 @@ const successConnection = () => {
 const errorConnection = ( err ) => {
 	console.error( err )
 }
-
-
-module.exports = api

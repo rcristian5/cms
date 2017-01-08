@@ -1,15 +1,10 @@
-const config = {}
 
-
-config.database = {
+export const databaseConfig = {
 	name: 'cms-test',
 	uri: 'mongodb://localhost'
 }
 
 
-config.app = {
+export const appConfig = {
 	port: 3000
 }
-
-
-module.exports = config
