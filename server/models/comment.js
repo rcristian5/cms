@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 
@@ -10,4 +10,4 @@ const commentSchema = Schema({
 })
 
 
-module.exports = mongoose.model ('comments', commentSchema )
+export const COMMENT = mongoose.model ('comments', commentSchema )

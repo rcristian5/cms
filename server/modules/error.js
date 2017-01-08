@@ -1,7 +1,5 @@
-let api = {}
 
-
-api.errorHandler =  (err, req, res, next ) => {
+export const errorHandler =  (err, req, res, next ) => {
 
 	let [error, status] = buildObjError( err )
 
@@ -37,6 +35,3 @@ const buildObjError = ( _err ) => {
 
 	return [error, status]
 }
-
-
-module.exports = api

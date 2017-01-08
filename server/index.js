@@ -1,10 +1,10 @@
 
-const configModule = require('./modules/config')
-const databaseModule = require('./modules/database')
-const appModule = require('./modules/app')
+import { appConfig } from './modules/config'
+import { databaseConnect } from './modules/database'
+import { listenApp } from './modules/app'
 
 
-const port = process.env.PORT || configModule.app.port
+const port = process.env.PORT || appConfig.port
 
 
-databaseModule.connect( appModule.listenApp(port) )
+databaseConnect( listenApp(port) )

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 
@@ -8,4 +8,4 @@ const tagSchema = Schema({
 })
 
 
-module.exports = mongoose.model( 'tags', tagSchema )
+export const TAG = mongoose.model( 'tags', tagSchema )
